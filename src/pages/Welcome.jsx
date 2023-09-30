@@ -8,6 +8,10 @@ const Welcome = () => {
     Navigate("/");
   };
 
+  const go_T0_Add_Contact = () => {
+    Navigate("/add_contact");
+  };
+
   return (
     <div className="w-full h-full bg-[url('/src/assets/images/background-img.png')]">
       <div className=" absolute left-[-122px] top-[-189px] bg-[#083F46] w-[1763px] h-[1107px] rounded-[50%] rotate-[25deg]"></div>
@@ -28,7 +32,10 @@ const Welcome = () => {
           This is where your contacts will live. Click the button below <br />{" "}
           to add a new contact.
         </p>
-        <button className="mt-[140px] rounded-full border focus:shadow-outline w-[323px] h-[48px] hover:bg-white hover:text-[#083F46]">
+        <button
+          onClick={() => go_T0_Add_Contact()}
+          className="mt-[140px] rounded-full border focus:shadow-outline w-[323px] h-[48px] hover:bg-white hover:text-[#083F46]"
+        >
           Add your first contact
         </button>
       </div>
