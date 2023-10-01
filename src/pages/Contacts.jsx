@@ -12,9 +12,24 @@ const Contacts = () => {
 
   // To Create the Popup Message.
   const [modelEdit, setEditModel] = useState(false);
+  const [modelDelete, setDeleteModel] = useState(false);
+  const [deleteSuccess, setDeleteSuccess] = useState(false);
 
-  const toggle_Modal = () => {
+  const toggle_Edit_Modal = () => {
     setEditModel(!modelEdit);
+  };
+
+  const toggle_Delete_Modal = () => {
+    setDeleteModel(!modelDelete);
+  };
+
+  const final_succees_yes = () => {
+    setDeleteSuccess(!deleteSuccess);
+  };
+
+  const toggle_Delete_Success_Message_Modal = () => {
+    toggle_Delete_Modal();
+    setDeleteSuccess(!deleteSuccess);
   };
 
   const edit_clicked = () => {
@@ -25,7 +40,7 @@ const Contacts = () => {
   const edit_saved = () => {
     setContentEditable(false);
     setTextBgColour("white");
-    toggle_Modal();
+    toggle_Edit_Modal();
   };
 
   const toggle_Clicked = () => {
@@ -141,6 +156,7 @@ const Contacts = () => {
               style={{ display: contentEditable ? "none" : "inline-block" }}
             />
             <img
+              onClick={toggle_Delete_Modal}
               className="cursor-pointer absolute left-[900px]"
               src="./src/assets/images/delete.svg"
               alt="delete-icon "
@@ -165,9 +181,7 @@ const Contacts = () => {
         <p className="pt-[8px]">logout</p>
       </a>
 
-      {/* <LogoutButton /> */}
-
-      {/*Below Code For Popups */}
+      {/*Below Code For Popups to Update.*/}
       {modelEdit && (
         <div className="w-full h-full top-0 left-0 right-0 bottom-0 fixed">
           <div className="w-full h-full top-0 left-0 right-0 bottom-0 fixed bg-[rgba(119,117,117,0.8)]">
@@ -176,11 +190,59 @@ const Contacts = () => {
                 Your Contacts has been saved succesfully!
               </h1>
               <button
-                onClick={toggle_Modal}
+                onClick={toggle_Edit_Modal}
                 className="ml-[300px] px-[25px] bg-white border border-[#083F46]  text-[#083F46] rounded-full w-[131px] h-[48px]  hover:bg-[#083F46] hover:text-white"
               >
                 Okey
               </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/*Below Code For Popups to Delete.*/}
+      {modelDelete && (
+        <div className="w-full h-full top-0 left-0 right-0 bottom-0 fixed">
+          <div className="w-full h-full top-0 left-0 right-0 bottom-0 fixed bg-[rgba(119,117,117,0.8)]">
+            <div className="absolute text-[30px] text-[#083F46] top-[277px] left-[370px] w-[809px] h-[215px] bg-white rounded-[30px] ">
+              <h1 className="py-[40px] px-[25px] text-center">
+                Do you want to delete the contact “Dion Fernando”?
+              </h1>
+              <div className="flex gap-8  ">
+                <button
+                  onClick={toggle_Delete_Success_Message_Modal}
+                  className="ml-[250px] px-[25px] bg-white border border-[#083F46]  text-[#083F46] rounded-full w-[131px] h-[48px]  hover:bg-[#083F46] hover:text-white"
+                >
+                  Yes
+                </button>
+                <button
+                  onClick={toggle_Delete_Modal}
+                  className=" px-[25px] bg-white border border-[#083F46]  text-[#083F46] rounded-full w-[131px] h-[48px]  hover:bg-[#083F46] hover:text-white"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/*Below Code For Popups to Delete Succesfully Mesasage.*/}
+      {deleteSuccess && (
+        <div className="w-full h-full top-0 left-0 right-0 bottom-0 fixed">
+          <div className="w-full h-full top-0 left-0 right-0 bottom-0 fixed bg-[rgba(119,117,117,0.8)]">
+            <div className="absolute text-[30px] text-[#083F46] top-[277px] left-[370px] w-[809px] h-[215px] bg-white rounded-[30px] ">
+              <h1 className="py-[40px] px-[25px] text-center">
+                Your contact has been deleted succefully
+              </h1>
+              <div className="flex gap-8  ">
+                <button
+                  onClick={final_succees_yes}
+                  className="ml-[250px] px-[25px] bg-white border border-[#083F46]  text-[#083F46] rounded-full w-[131px] h-[48px]  hover:bg-[#083F46] hover:text-white"
+                >
+                  Okey
+                </button>
+              </div>
             </div>
           </div>
         </div>
