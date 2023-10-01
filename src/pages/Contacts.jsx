@@ -15,21 +15,27 @@ const Contacts = () => {
   const [modelDelete, setDeleteModel] = useState(false);
   const [deleteSuccess, setDeleteSuccess] = useState(false);
 
+  const [isBlurred, setIsBlurred] = useState(false);
+
   const toggle_Edit_Modal = () => {
     setEditModel(!modelEdit);
+    setIsBlurred(false);
   };
 
   const toggle_Delete_Modal = () => {
     setDeleteModel(!modelDelete);
+    setIsBlurred(!isBlurred);
   };
 
   const final_succees_yes = () => {
     setDeleteSuccess(!deleteSuccess);
+    setIsBlurred(false);
   };
 
   const toggle_Delete_Success_Message_Modal = () => {
     toggle_Delete_Modal();
     setDeleteSuccess(!deleteSuccess);
+    setIsBlurred(true);
   };
 
   const edit_clicked = () => {
@@ -41,6 +47,7 @@ const Contacts = () => {
     setContentEditable(false);
     setTextBgColour("white");
     toggle_Edit_Modal();
+    setIsBlurred(true);
   };
 
   const toggle_Clicked = () => {
@@ -60,10 +67,20 @@ const Contacts = () => {
     Navigate("/add_contact");
   };
 
+  const blurStyle = {
+    filter: isBlurred ? "blur(5px)" : "none",
+  };
+
   return (
     <div className="w-full h-full bg-[url('/src/assets/images/background-img.png')]">
-      <div className=" absolute left-[-122px] top-[-189px] bg-[#083F46] w-[1763px] h-[1107px] rounded-[50%] rotate-[25deg]"></div>
-      <div className="relative text-white top-[102px] left-[205px] w-[138px] h-[91px]">
+      <div
+        style={blurStyle}
+        className="absolute left-[-122px] top-[-189px] bg-[#083F46] w-[1763px] h-[1107px] rounded-[50%] rotate-[25deg]"
+      ></div>
+      <div
+        style={blurStyle}
+        className="relative text-white top-[102px] left-[205px] w-[138px] h-[91px]"
+      >
         <img
           className="w-[72px] h-[24px]"
           src="./src/assets/images/twc-white.svg"
@@ -74,7 +91,10 @@ const Contacts = () => {
         </p>
       </div>
 
-      <div className="absolute text-white w-[994px] h-[73px] top-[230px] left-[204px]">
+      <div
+        style={blurStyle}
+        className="absolute text-white w-[994px] h-[73px] top-[230px] left-[204px]"
+      >
         <p className=" inline-flex text-4xl font-bold mb-[60px] pt-2">
           Contacts
         </p>
@@ -87,7 +107,10 @@ const Contacts = () => {
         </button>
       </div>
 
-      <section className="contact-details overflow-y-auto absolute w-[955px] h-[316px] bg-white mt-[220px] ml-[200px] rounded-[30px]">
+      <section
+        style={blurStyle}
+        className="contact-details overflow-y-auto absolute w-[955px] h-[316px] bg-white mt-[220px] ml-[200px] rounded-[30px]"
+      >
         <div className="table-heading flex space-x-[100px] pl-[144px] pt-4 text-[18px] text-[#083F46] font-bold">
           <p>full name</p>
           <p>gender</p>
@@ -174,6 +197,7 @@ const Contacts = () => {
       </section>
 
       <a
+        style={blurStyle}
         onClick={() => go_T0_Login()}
         className="absolute underline text-white left-[1180px] top-[640px] flex gap-3 cursor-pointer"
       >
@@ -184,7 +208,7 @@ const Contacts = () => {
       {/*Below Code For Popups to Update.*/}
       {modelEdit && (
         <div className="w-full h-full top-0 left-0 right-0 bottom-0 fixed">
-          <div className="w-full h-full top-0 left-0 right-0 bottom-0 fixed bg-[rgba(119,117,117,0.8)]">
+          <div className="w-full h-full top-0 left-0 right-0 bottom-0 fixed">
             <div className="absolute text-[30px] text-[#083F46] top-[277px] left-[370px] w-[809px] h-[215px] bg-white rounded-[30px] ">
               <h1 className="py-[40px] px-[25px] text-center">
                 Your Contacts has been saved succesfully!
@@ -203,7 +227,7 @@ const Contacts = () => {
       {/*Below Code For Popups to Delete.*/}
       {modelDelete && (
         <div className="w-full h-full top-0 left-0 right-0 bottom-0 fixed">
-          <div className="w-full h-full top-0 left-0 right-0 bottom-0 fixed bg-[rgba(119,117,117,0.8)]">
+          <div className="w-full h-full top-0 left-0 right-0 bottom-0 fixed">
             <div className="absolute text-[30px] text-[#083F46] top-[277px] left-[370px] w-[809px] h-[215px] bg-white rounded-[30px] ">
               <h1 className="py-[40px] px-[25px] text-center">
                 Do you want to delete the contact “Dion Fernando”?
@@ -230,15 +254,15 @@ const Contacts = () => {
       {/*Below Code For Popups to Delete Succesfully Mesasage.*/}
       {deleteSuccess && (
         <div className="w-full h-full top-0 left-0 right-0 bottom-0 fixed">
-          <div className="w-full h-full top-0 left-0 right-0 bottom-0 fixed bg-[rgba(119,117,117,0.8)]">
+          <div className="w-full h-full top-0 left-0 right-0 bottom-0 fixed">
             <div className="absolute text-[30px] text-[#083F46] top-[277px] left-[370px] w-[809px] h-[215px] bg-white rounded-[30px] ">
               <h1 className="py-[40px] px-[25px] text-center">
-                Your contact has been deleted succefully
+                Your contact has been deleted succefully!
               </h1>
               <div className="flex gap-8  ">
                 <button
                   onClick={final_succees_yes}
-                  className="ml-[250px] px-[25px] bg-white border border-[#083F46]  text-[#083F46] rounded-full w-[131px] h-[48px]  hover:bg-[#083F46] hover:text-white"
+                  className="ml-[300px] px-[25px] bg-white border border-[#083F46]  text-[#083F46] rounded-full w-[131px] h-[48px]  hover:bg-[#083F46] hover:text-white"
                 >
                   Okey
                 </button>
