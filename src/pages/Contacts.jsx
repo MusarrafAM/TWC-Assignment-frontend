@@ -207,7 +207,7 @@ const Contacts = () => {
 
       {/*Below Code For Popups to Update.*/}
       {modelEdit && (
-        <div className="w-full h-full top-0 left-0 right-0 bottom-0 fixed">
+        <div className="w-full h-full top-0 left-0 right-0 bottom-0 fixed bg-[]">
           <div className="w-full h-full top-0 left-0 right-0 bottom-0 fixed">
             <div className="absolute text-[30px] text-[#083F46] top-[277px] left-[370px] w-[809px] h-[215px] bg-white rounded-[30px] ">
               <h1 className="py-[40px] px-[25px] text-center">
@@ -276,5 +276,3 @@ const Contacts = () => {
 };
 
 export default Contacts;
-
-//  border focus:shadow-outline
