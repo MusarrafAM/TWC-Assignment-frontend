@@ -13,7 +13,7 @@ export const data = [
   },
   {
     name: "Dion Fernando",
-    gender: "Male",
+    gender: "Female",
     mail: "Deon@gmail.com",
     phone: "07789230123",
   },

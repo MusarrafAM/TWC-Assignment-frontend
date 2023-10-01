@@ -73,6 +73,7 @@ const AddContact = () => {
             <label>
               {/* name should be same inorder to add requir to radiobox 1 required enough.*/}
               <input
+                className="mr-3 accent-[#083F46]"
                 type="radio"
                 value="male"
                 checked={gender === "male"}
@@ -86,6 +87,7 @@ const AddContact = () => {
             <br />
             <label>
               <input
+                className="mr-3 accent-[#083F46]"
                 type="radio"
                 value="female"
                 checked={gender === "female"}

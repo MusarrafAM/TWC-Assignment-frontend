@@ -1,10 +1,30 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { data } from "../constants";
 
-
 const Contacts = () => {
   const Navigate = useNavigate();
+
+  const [contentEditable, setContentEditable] = useState(false);
+  const [gender, setgender] = useState("Male");
+
+  // const toggleContentEditable = () => {
+  //   setContentEditable((prevState) => !prevState);
+  // };
+
+  const edit_clicked = () => {
+    setContentEditable(true);
+  };
+
+  const toggle_Clicked = () => {
+    if (gender === "Male") {
+      setgender("Female");
+    } else {
+      setgender("Male");
+    }
+    console.log(gender);
+  };
 
   const go_T0_Login = () => {
     Navigate("/");
@@ -50,23 +70,61 @@ const Contacts = () => {
         </div>
 
         {data.map((item, index) => (
-          <div className="each-contact-row flex gap-[30px] items-center my-3" key={index}>
+          <div
+            className="each-contact-row flex gap-[30px] items-center my-3 "
+            key={index}
+          >
+            {item.gender === "Male" ? (
+              <img
+                className="pl-8 pr-5"
+                src="./src/assets/images/male.png"
+                alt="user Image"
+              />
+            ) : (
+              <img
+                className="pl-8 pr-5"
+                src="./src/assets/images/female.png"
+                alt="user Image"
+              />
+            )}
+            <p
+              contentEditable={contentEditable}
+              className="max-w-[173px] pr-12"
+            >
+              {item.name}
+            </p>
+            <p className="pr-[90px]">
+              {item.gender}
+              {contentEditable && (
+                <img
+                  onClick={toggle_Clicked}
+                  className="cursor-pointer"
+                  src="./src/assets/images/toggle.svg"
+                  alt="toggle pic"
+                />
+              )}
+            </p>
+            <p contentEditable={contentEditable} className="pr-[75px]">
+              {item.mail}
+            </p>
+            <p contentEditable={contentEditable} className="pr-[30px]">
+              {item.phone}
+            </p>
             <img
-              className="pl-8 pr-5"
-              src="./src/assets/images/male.png"
-              alt="user Image"
+              onClick={edit_clicked}
+              className="cursor-pointer "
+              src="./src/assets/images/pencil.svg"
+              alt="edit-icon"
+              style={{ display: contentEditable ? "none" : "inline-block" }}
             />
-            <p className="max-w-[173px] pr-12">{item.name}</p>
-            <p className="pr-[90px]">{item.gender}</p>
-            <p className="pr-[75px]">{item.mail}</p>
-            <p className="pr-[30px]">{item.phone}</p>
-            <img className="cursor-pointer" src="./src/assets/images/pencil.svg" alt="" />
-            <img className="cursor-pointer" src="./src/assets/images/delete.svg" alt="" />
+            <img
+              className="cursor-pointer"
+              src="./src/assets/images/delete.svg"
+              alt="delete-icon"
+              style={{ display: contentEditable ? "none" : "inline-block" }}
+            />
           </div>
         ))}
-
-        
-        
       </section>
 
       <a
