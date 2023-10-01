@@ -1,12 +1,30 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-
 const Login = () => {
-  const Navigate = useNavigate()
+  const Navigate = useNavigate();
 
-  const go_to_register = () =>{
-    Navigate("/register")
-  }
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const go_to_register = () => {
+    Navigate("/register");
+  };
+
+  const Login_Clicked = (e) => {
+    e.preventDefault();
+
+    // Handle form submission logic here
+    console.log(email);
+    console.log(password);
+    if (email === "a@gmail.com"){
+      if(password === "123"){
+        Navigate("./Welcome")
+      }
+    }
+    setEmail("");
+    setPassword("");
+  };
 
   return (
     <div>
@@ -17,25 +35,39 @@ const Login = () => {
           Welcome to our <br />
           contacts portal
         </p>
-        <form action="">
+        <form onSubmit={Login_Clicked}>
           <input
             type="email"
-            placeholder="e-mail"
+            id="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
             className="rounded-[50px] w-[477px] h-[55px] placeholder:text-[#083F46] pl-[41px] text-[25px] font-medium my-7  "
           />
 
           <input
             type="password"
+            id="password"
             placeholder="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
             className="rounded-[50px] w-[477px] h-[55px] placeholder:text-[#083F46] pl-[41px] text-[25px] font-medium"
           />
 
           <div className="flex text-[25px] text-white mt-12">
-            <button className="rounded-full border focus:shadow-outline w-[131px] h-[48px] hover:bg-white hover:text-[#083F46]">
+            <button
+              type="submit"
+              className="rounded-full border focus:shadow-outline w-[131px] h-[48px] hover:bg-white hover:text-[#083F46]"
+            >
               Login
             </button>
             <p className="pl-4 px-4">or</p>
-            <a className="underline cursor-pointer" onClick={()=>go_to_register()}>
+            <a
+              className="underline cursor-pointer"
+              onClick={() => go_to_register()}
+            >
               Click here to Register
             </a>
           </div>
