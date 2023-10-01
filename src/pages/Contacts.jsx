@@ -7,14 +7,25 @@ const Contacts = () => {
   const Navigate = useNavigate();
 
   const [contentEditable, setContentEditable] = useState(false);
+  const [textBgColour, setTextBgColour] = useState("white");
   const [gender, setgender] = useState("Male");
 
-  // const toggleContentEditable = () => {
-  //   setContentEditable((prevState) => !prevState);
-  // };
+  // To Create the Popup Message.
+  const [modelEdit, setEditModel] = useState(false);
+
+  const toggle_Modal = () => {
+    setEditModel(!modelEdit);
+  };
 
   const edit_clicked = () => {
     setContentEditable(true);
+    setTextBgColour("#E7ECED");
+  };
+
+  const edit_saved = () => {
+    setContentEditable(false);
+    setTextBgColour("white");
+    toggle_Modal();
   };
 
   const toggle_Clicked = () => {
@@ -71,29 +82,33 @@ const Contacts = () => {
 
         {data.map((item, index) => (
           <div
-            className="each-contact-row flex gap-[30px] items-center my-3 "
+            className="each-contact-row flex gap-[30px] items-center my-3 text-[20px] text-[#083F46]"
             key={index}
           >
             {item.gender === "Male" ? (
               <img
-                className="pl-8 pr-5"
+                className="pl-8"
                 src="./src/assets/images/male.png"
                 alt="user Image"
               />
             ) : (
               <img
-                className="pl-8 pr-5"
+                className="pl-8"
                 src="./src/assets/images/female.png"
                 alt="user Image"
               />
             )}
             <p
               contentEditable={contentEditable}
-              className="max-w-[173px] pr-12"
+              className="max-w-[200px]"
+              style={{ background: textBgColour }}
             >
               {item.name}
             </p>
-            <p className="pr-[90px]">
+            <p
+              className="absolute flex gap-3 left-[330px]"
+              style={{ background: textBgColour }}
+            >
               {item.gender}
               {contentEditable && (
                 <img
@@ -104,25 +119,40 @@ const Contacts = () => {
                 />
               )}
             </p>
-            <p contentEditable={contentEditable} className="pr-[75px]">
+            <p
+              contentEditable={contentEditable}
+              style={{ background: textBgColour }}
+              className="absolute left-[470px]"
+            >
               {item.mail}
             </p>
-            <p contentEditable={contentEditable} className="pr-[30px]">
+            <p
+              contentEditable={contentEditable}
+              style={{ background: textBgColour }}
+              className="absolute left-[710px]"
+            >
               {item.phone}
             </p>
             <img
               onClick={edit_clicked}
-              className="cursor-pointer "
+              className="cursor-pointer absolute left-[860px] "
               src="./src/assets/images/pencil.svg"
               alt="edit-icon"
               style={{ display: contentEditable ? "none" : "inline-block" }}
             />
             <img
-              className="cursor-pointer"
+              className="cursor-pointer absolute left-[900px]"
               src="./src/assets/images/delete.svg"
-              alt="delete-icon"
+              alt="delete-icon "
               style={{ display: contentEditable ? "none" : "inline-block" }}
             />
+            <button
+              onClick={edit_saved}
+              className="pb-3 w-[72px] h-[35px] rounded-[20px] bg-[#083F46] text-white absolute left-[850px]"
+              style={{ display: !contentEditable ? "none" : "inline-block" }}
+            >
+              save
+            </button>
           </div>
         ))}
       </section>
@@ -136,8 +166,29 @@ const Contacts = () => {
       </a>
 
       {/* <LogoutButton /> */}
+
+      {/*Below Code For Popups */}
+      {modelEdit && (
+        <div className="w-full h-full top-0 left-0 right-0 bottom-0 fixed">
+          <div className="w-full h-full top-0 left-0 right-0 bottom-0 fixed bg-[rgba(119,117,117,0.8)]">
+            <div className="absolute text-[30px] text-[#083F46] top-[277px] left-[370px] w-[809px] h-[215px] bg-white rounded-[30px] ">
+              <h1 className="py-[40px] px-[25px] text-center">
+                Your Contacts has been saved succesfully!
+              </h1>
+              <button
+                onClick={toggle_Modal}
+                className="ml-[300px] px-[25px] bg-white border border-[#083F46]  text-[#083F46] rounded-full w-[131px] h-[48px]  hover:bg-[#083F46] hover:text-white"
+              >
+                Okey
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
 
 export default Contacts;
+
+//  border focus:shadow-outline
